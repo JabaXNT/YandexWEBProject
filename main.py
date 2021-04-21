@@ -9,12 +9,12 @@ api = Api(app)
 
 @app.route("/")
 def index():
-    return render_template('')
+    return render_template('main.html')
 
 
 def main():
     db_session.global_init('db/products.db')
-    app.run(debug=True)
+    app.run(host='127.0.0.1', port='5000', debug=True)
 
 
 if __name__ == '__main__':
