@@ -9,8 +9,8 @@ api = Api(app)
 api.add_resource(products_resource.ProductsListResource, '/products')
 api.add_resource(products_resource.ProductsResource,
                  '/products/<int:product_id>')
-api.add_resource(users_resource.UserListResource, '/products/users')
-api.add_resource(users_resource.UserResource, '/products/<int:user_id>')
+api.add_resource(users_resource.UserListResource, '/users')
+api.add_resource(users_resource.UserResource, '/users/<int:user_id>')
 
 
 @app.route("/")
