@@ -1,34 +1,31 @@
 <html>
-    <head>
-
-        <link href="/static/style.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-        <title>Exchange</title>
-    </head>
-    <body>
-    <header style="display: inline-block; background-color: #7C7C7C; width: 100%; text-align: center"><img
-            src="../static/exchange-01_4x.png" height="100" width="150"/>
-        <div>
-        <div class="dropdown" style="display: inline-block">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #FF9D5A">
+<head>
+    <link href="/static/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Exchange</title>
+</head>
+<body>
+<header style="background-color: #7C7C7C; width: 100%; text-align: center; border-radius: 0 0 10px 10px; box-shadow: 0 0 5px;" class="flex-container">
+    <a href="/"><img src="../static/exchange-01_4x.png" height="100" width="150" style="display: inline-block; margin-right: -10px"/></a>
+    <div style="display: inline-block; margin-right: 10px" class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #FF9D5A">
             <img src="../static/list.png"/>Каталог
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <li><a class="dropdown-item">Действие</a></li>
             <li><a class="dropdown-item">Другое действие</a></li>
             <li><a class="dropdown-item">Что-то еще здесь</a></li>
-          </ul>
-        </div>
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Имя пользователя получателя" aria-label="Имя пользователя получателя" aria-describedby="basic-addon2">
-          <span class="input-group-text" id="basic-addon2">@example.com</span>
-        </div>
-            </div>
-    </header>
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    </body>
+        </ul>
+    </div>
+    <div class="input-group mb-3" style="width: 50%; height: auto">
+        <input type="text" class="form-control" placeholder="Продукт..."
+               aria-label="Имя пользователя получателя" aria-describedby="basic-addon2">
+        <span class="input-group-text" id="basic-addon2" style="height: fit-content"><a>Поиск</a></span>
+    </div>
+</header>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
 </html>

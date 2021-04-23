@@ -1,6 +1,18 @@
 body {
     margin: 0;
 }
+
 footer {
     background-color: grey;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-group {
+    padding-top: 15px;
 }
