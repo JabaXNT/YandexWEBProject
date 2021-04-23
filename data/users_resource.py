@@ -1,6 +1,7 @@
 from data.user import User
 from data import db_session
 from flask import Flask, abort, jsonify
+from flask_jwt_simple import jwt_required
 from flask_restful import reqparse, abort, Api, Resource
 
 app = Flask(__name__)
@@ -15,11 +16,13 @@ parser.add_argument('hashed_password', required=True, type=str)
 
 
 class UserResource(Resource):
+    @jwt_required
     def get(self, user_id):
         abort_if_news_not_found(user_id)
         session = db_session.create_session()
         user = session.query(User).get(user_id)
-        return jsonify()
+        return jsonify({'user': user.to_dict(
+            only=('id', 'surname', 'name', 'email', 'hashed_password'))})
 
     def delete(self, user_id):
         abort_if_news_not_found(user_id)

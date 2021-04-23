@@ -43,7 +43,6 @@ def login():
     if username != 'test' or password != 'test':
         return jsonify({"msg": "Bad username or password"}), 401
 
-    # Identity can be any data that is json serializable
     ret = {'jwt': create_jwt(identity=username)}
     return jsonify(ret), 200
 
@@ -51,7 +50,6 @@ def login():
 @app.route('/protected', methods=['GET'])
 @jwt_required
 def protected():
-    # Access the identity of the current user with get_jwt_identity
     return jsonify({'hello_from': get_jwt_identity()}), 200
 
 
