@@ -11,6 +11,7 @@ class Product(SqlAlchemyBase):
     title = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     content = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     count = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
+    image = sqlalchemy.Column(sqlalchemy.String, nullable=True)
 
     def __repr__(self):
         return f"Product {self.title} {self.content}"
