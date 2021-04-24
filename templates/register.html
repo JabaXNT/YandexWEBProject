@@ -1,5 +1,12 @@
-<h1>Регистрация</h1>
-<form action="" method="post">
+<html>
+<head>
+    <title>Регистрация</title>
+    <link href="../static/style.css" rel="stylesheet">
+</head>
+<body>
+<div class='footer_registration'>Регистрация</div>
+<p style="text-align: center"><img src="../static/exchange-01_4x.png" height="200" width="250"/><p>
+<form class='form_registration' action="" method="post" style="text-align: center">
     {{ form.hidden_tag() }}
     <p>
         {{ form.email.label }}<br>
@@ -36,3 +43,5 @@
     <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
     {{message}}
 </form>
+</body>
+</html>
