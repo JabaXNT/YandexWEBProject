@@ -46,3 +46,19 @@ footer {
     right: 6%;
     margin-top: 10px;
     margin-left: 100px;}
+
+.footer_registration{
+    background-color: #7C7C7C;
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 0 5px;
+}
+
+.form_registration{
+    display: flex;
+    flex-direction: column;
+}

@@ -32,7 +32,7 @@ def index():
     return render_template('main.html')
 
 
-@app.route('/register', methods=['GET', 'POST'])
+@app.route('/reg', methods=['GET', 'POST'])
 def reqister():
     form = RegisterForm()
     if form.validate_on_submit():
