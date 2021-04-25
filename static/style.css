@@ -28,7 +28,7 @@ footer {
 }
 
 .content {
-	min-height: calc(100vh - 100px);
+    min-height: calc(100vh - 100px);
 }
 
 .footer {
@@ -41,13 +41,15 @@ footer {
     display: flex;
     justify-content: center;
 }
-.footer_link{
+
+.footer_link {
     position: relative;
     right: 6%;
     margin-top: 10px;
-    margin-left: 100px;}
+    margin-left: 100px;
+}
 
-.footer_registration{
+.footer_registration {
     background-color: #7C7C7C;
     width: 100%;
     height: 10%;
@@ -58,7 +60,27 @@ footer {
     box-shadow: 0 0 5px;
 }
 
-.form_registration{
+.form_registration {
     display: flex;
     flex-direction: column;
+    background: #ff9d5a;
+    margin: auto;
+    max-width: 40%;
+    border-radius: 10px;
+}
+
+.form-control {
+    border-radius: 10px;
+    border: 0px;
+}
+
+.btn {
+    border-radius: 10px;
+    border: 10px;
+    padding: 4px 10px 5px;
+    color: black;
+}
+
+.btn:hover {
+    background-color: #afafaf;
 }
