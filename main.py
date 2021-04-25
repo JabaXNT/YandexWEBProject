@@ -1,11 +1,10 @@
-from flask import Flask, render_template, request, redirect, abort, session, jsonify
+from flask import Flask, render_template, request, redirect, session
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required
 from flask_restful import Api
 from data.user import User
 from data.products import Product
 from forms.reg_user import RegisterForm
 from forms.login_user import LoginForm
-from forms.add_product import AddProduct
 from data import db_session
 from data import users_resource, products_resource
 
