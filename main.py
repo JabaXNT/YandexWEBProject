@@ -60,8 +60,8 @@ def reqister():
 def login():
     session['login'] = ...
     form = LoginForm()
+    db_sess = db_session.create_session()
     if form.validate_on_submit():
-        db_sess = db_session.create_session()
         user = db_sess.query(User).filter(
             User.email == form.email.data).first()
         if user and user.check_password(form.password.data):
@@ -70,7 +70,7 @@ def login():
         return render_template('login.html',
                                message="Неправильный логин или пароль",
                                form=form)
-    session['login'] = form.email  # Получить логин
+    session['login'] = db_sess.query(User).get(form.email.data)
     return render_template('login.html', title='Авторизация', form=form)
 
 

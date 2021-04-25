@@ -19,7 +19,7 @@ class User(SqlAlchemyBase, UserMixin, SerializerMixin):
                                       default=datetime.datetime.now)
 
     def __repr__(self):
-        return f"User {self.username} {self.email}"
+        return self.username
 
     def set_password(self, password):
         self.hashed_password = generate_password_hash(password)
