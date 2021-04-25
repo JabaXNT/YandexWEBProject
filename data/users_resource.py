@@ -8,21 +8,21 @@ api = Api(app)
 
 parser = reqparse.RequestParser()
 parser.add_argument('id')
-parser.add_argument('surname', required=True, type=str)
-parser.add_argument('name', required=True, type=str)
+parser.add_argument('username', required=True, type=str)
 parser.add_argument('email', required=True, type=str)
 parser.add_argument('hashed_password', required=True, type=str)
 
 
 class UserResource(Resource):
     def get(self, user_id):
-        abort_if_news_not_found(user_id)
+        abort_if_user_not_found(user_id)
         session = db_session.create_session()
         user = session.query(User).get(user_id)
-        return jsonify()
+        return jsonify({'user': user.to_dict(
+            only=('id', 'username', 'email'))})
 
     def delete(self, user_id):
-        abort_if_news_not_found(user_id)
+        abort_if_user_not_found(user_id)
         session = db_session.create_session()
         news = session.query(User).get(user_id)
         session.delete(news)
@@ -37,7 +37,7 @@ class UserListResource(Resource):
         return jsonify(
             {
                 'user':
-                [item.to_dict(only=('id', 'surname', 'name', 'email', 'hashed_password'))
+                [item.to_dict(only=('id', 'username', 'email'))
                  for item in user]
             }
         )
@@ -46,8 +46,7 @@ class UserListResource(Resource):
         args = parser.parse_args()
         session = db_session.create_session()
         user = User(
-            surname=args['surname'],
-            name=args['name'],
+            surname=args['username'],
             email=args['email'],
         )
         user.set_password(args['hashed_password'])
@@ -56,7 +55,7 @@ class UserListResource(Resource):
         return jsonify({'success': 'OK'})
 
 
-def abort_if_news_not_found(user_id):
+def abort_if_user_not_found(user_id):
     session = db_session.create_session()
     user = session.query(User).get(user_id)
     if not user:
