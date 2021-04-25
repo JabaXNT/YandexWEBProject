@@ -94,3 +94,7 @@ footer {
 .btn:hover {
     background-color: #afafaf;
 }
+
+.carousel {
+    width: 400px;
+}

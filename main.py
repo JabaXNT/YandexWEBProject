@@ -79,7 +79,7 @@ def product(id_products):
     db_sess = db_session.create_session()
     product = db_sess.query(Product).get(id_products)
     list_product = {'product': product.to_dict(
-            only=('title', 'count', 'content', 'image'))}
+            only=('title', 'count', 'price', 'image'))}
     return render_template('products.html', list_product=list_product)
 
 
