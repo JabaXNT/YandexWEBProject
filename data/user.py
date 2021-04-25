@@ -17,6 +17,7 @@ class User(SqlAlchemyBase, UserMixin, SerializerMixin):
     hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     modified_date = sqlalchemy.Column(sqlalchemy.DateTime,
                                       default=datetime.datetime.now)
+    is_admin = sqlalchemy.Column(sqlalchemy.Boolean, nullable=True, default=False)
 
     def __repr__(self):
         return self.username
