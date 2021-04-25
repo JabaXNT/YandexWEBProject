@@ -1,5 +1,8 @@
-<h1>Авторизация</h1>
-<form action="" method="post">
+<head>
+    <link href="../static/style.css" rel="stylesheet">
+</head>
+<div class='footer_registration'><b>Авторизация</b></div>
+<form class='form_login' action="" method="post">
     {{ form.hidden_tag() }}
     <p>
         {{ form.email.label }}<br>
@@ -17,7 +20,6 @@
         {{ error }}
     </div>
     {% endfor %}
-    <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
     <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
     <div>{{ message }}</div>
 </form>

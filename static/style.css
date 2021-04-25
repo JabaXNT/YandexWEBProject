@@ -69,6 +69,16 @@ footer {
     border-radius: 10px;
 }
 
+.form_login {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background: #ff9d5a;
+    margin: auto;
+    max-width: 40%;
+    border-radius: 10px;
+}
+
 .form-control {
     border-radius: 10px;
     border: 0px;
