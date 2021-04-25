@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, abort, session
+from flask import Flask, render_template, request, redirect, abort, session, jsonify
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required
 from flask_restful import Api
 from data.user import User
@@ -76,7 +76,11 @@ def login():
 
 @app.route('/products/<int:id_products>')
 def product(id_products):
-    return render_template('products.html', list_product=None)
+    db_sess = db_session.create_session()
+    product = db_sess.query(Product).get(id_products)
+    list_product = {'product': product.to_dict(
+            only=('title', 'count', 'content', 'image'))}
+    return render_template('products.html', list_product=list_product)
 
 
 @app.route('/logout')
@@ -87,7 +91,7 @@ def logout():
 
 
 def main():
-    db_session.global_init('db/products.db')
+    db_session.global_init('db/products_test.db')
     app.run(host='127.0.0.1', port='5000', debug=True)
 
 

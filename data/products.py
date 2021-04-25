@@ -15,4 +15,4 @@ class Product(SqlAlchemyBase, UserMixin, SerializerMixin):
     image = sqlalchemy.Column(sqlalchemy.String, nullable=True)
 
     def __repr__(self):
-        return f"Product {self.title} {self.content}"
+        return str({'title': self.title, 'content': self.count, 'count': self.count, 'image': self.image})
