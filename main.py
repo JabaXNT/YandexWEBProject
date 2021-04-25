@@ -90,7 +90,7 @@ def logout():
 
 
 def main():
-    db_session.global_init('db/products_test.db')
+    db_session.global_init('db/products_final.db')
     app.run(host='127.0.0.1', port='5000', debug=True)
 
 
