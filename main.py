@@ -29,7 +29,7 @@ def load_user(user_id):
 
 @app.route("/")
 def index():
-    return render_template('main.html')
+    return render_template('main.html', session=session)
 
 
 @app.route('/reg', methods=['GET', 'POST'])
@@ -58,20 +58,25 @@ def reqister():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    session['login'] = ...
     form = LoginForm()
+    session['login'] = None
     db_sess = db_session.create_session()
     if form.validate_on_submit():
         user = db_sess.query(User).filter(
             User.email == form.email.data).first()
         if user and user.check_password(form.password.data):
+            session['login'] = str(user)
             login_user(user, remember=form.remember_me.data)
             return redirect("/")
         return render_template('login.html',
                                message="Неправильный логин или пароль",
                                form=form)
-    session['login'] = db_sess.query(User).get(form.email.data)
     return render_template('login.html', title='Авторизация', form=form)
+
+
+@app.route('/products/<int:id_products>')
+def product(id_products):
+    return render_template('products.html', list_product=None)
 
 
 @app.route('/logout')
