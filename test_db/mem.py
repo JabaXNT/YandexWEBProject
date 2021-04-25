@@ -9,7 +9,7 @@ with open('test_db/flipkart_com-ecommerce_sample.csv', encoding="utf8") as fin:
     dr = csv.DictReader(fin, delimiter=",")
     ar = [(i['product_name'], i['image']) for i in dr]
 
-con = sqlite3.connect('db/products_test.db')
+con = sqlite3.connect('db/products.db')
 cur = con.cursor()
 count = 0
 for i in ar:

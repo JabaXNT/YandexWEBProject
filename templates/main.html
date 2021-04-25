@@ -39,20 +39,21 @@
                 onmouseover="this.style.color='#FFE5E5E5'" onmouseout="this.style.color='white'">Поиск</a></span>
     </div>
     <!--Поиск-->
-    {% if session['login'] is not defined %}
+    {% if session['login'] is none %}
     <a href="/reg"><img src="../static/account.png" style="width: 40px; border-radius: 20px"></a>
-    {% elif session['login'] is defined %}
+    {% elif session['login'] is not none %}
     <button style="border: 0px; background: 0"><a style="text-decoration: None; color: black"
                                                   onmouseover="this.style.color='rgba(0,0,0,0.79)'"
                                                   onmouseout="this.style.color='rgb(0,0,0)'">{{session['login']}}</a>
     </button>
     <a href="/favorite"><img src="../static/favorite.png" style="width: 40px; border-radius: 20px"></a>
-    <figure style="background: red; border-radius: 20px; position: relative; right: 15px; width: 24px; height: 24px">1</figure>
+    <figure style="background: red; border-radius: 20px; position: relative; right: 15px; width: 24px; height: 24px">1
+    </figure>
     {% endif %}
     <!--ЛК-->
 </header>
-<div class="content">
-</div>
+{% block content %}
+{% endblock %}
 <footer class="footer">
     <a class="footer_link" href="buy" style="text-decoration: None; color: black"
        onmouseover="this.style.color='rgba(0,0,0,0.79)'"

@@ -66,6 +66,7 @@ def login():
             User.email == form.email.data).first()
         if user and user.check_password(form.password.data):
             session['login'] = str(user)
+            session['favorite'] = []
             login_user(user, remember=form.remember_me.data)
             return redirect("/")
         return render_template('login.html',
