@@ -2,13 +2,14 @@ import csv
 import sqlite3
 from requests import get
 import ast
+from random import randint
 
 
-with open('flipkart_com-ecommerce_sample.csv', encoding="utf8") as fin:
+with open('test_db/flipkart_com-ecommerce_sample.csv', encoding="utf8") as fin:
     dr = csv.DictReader(fin, delimiter=",")
     ar = [(i['product_name'], i['image']) for i in dr]
 
-con = sqlite3.connect('db/products.db')
+con = sqlite3.connect('db/products_test.db')
 cur = con.cursor()
 count = 0
 for i in ar:
@@ -20,8 +21,9 @@ for i in ar:
         if a.status_code == 200:
             lest3.append(j)
     lest[1] = str(lest3)
-    result = cur.execute(
-        "INSERT INTO products (title, image, count) VALUES (?, ?, ?)", (lest[0], lest[1], 3,))
+    if len(lest[1]) > 0:
+        result = cur.execute(
+            "INSERT INTO products (title, image, count) VALUES (?, ?, ?)", (lest[0], lest[1], randint(4, 20),))
     count += 1
     print(count)
     con.commit()
