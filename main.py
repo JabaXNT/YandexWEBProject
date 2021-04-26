@@ -102,11 +102,12 @@ def bin_add():
     product_id_bin = str(json.loads(request.data)['id'])
     user = db_sess.query(User).filter(User.username == current_user.username).first()
     product = db_sess.query(Product).get(product_id_bin)
+    inter = ast.literal_eval(user.bin)
     list_product = {'product': product.to_dict(
             only=('id', 'title', 'count', 'price', 'image'))}
-    inter = ast.literal_eval(user.bin)
     if list_product in inter:
         return {'200': 'Accept'}
+    list_product["lenght"] = len(inter)
     inter.append(list_product)
     user.bin = str(inter)
     db_sess.commit()
@@ -129,11 +130,12 @@ def favourite_add():
     product_id_fav = str(json.loads(request.data)['id'])
     user = db_sess.query(User).filter(User.username == current_user.username).first()
     product = db_sess.query(Product).get(product_id_fav)
+    inter = ast.literal_eval(user.fav)
     list_product = {'product': product.to_dict(
             only=('id', 'title', 'count', 'price', 'image'))}
-    inter = ast.literal_eval(user.fav)
     if list_product in inter:
         return {'200': 'Accept'}
+    list_product["lenght"] = len(inter)
     inter.append(list_product)
     user.favourite = str(inter)
     db_sess.commit()
