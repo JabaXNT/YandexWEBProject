@@ -2,11 +2,13 @@
 
 {% block content %}
 
-
-<script>
-    fetch('12')
-</script>
+{% set a = dict(list_product['bin'][1:-1]) %}
+{% for i in range(a | length) %}
 <div>
-    <p></p>
+    <figure style="display:flex; margin-top: 10px; justify-content: center; background: #afafaf; position:relative; width: 60%; left: 20%; border-radius: 10px">
+        <p style="position:relative; right: 100px; text-align: right">{{ a[i]['product']['title'] }}</p>
+        <p style="position:relative; left: 10px">{{ a[i]['product']['count'] }}</p>
+    </figure>
 </div>
+{% endfor %}
 {% endblock %}
