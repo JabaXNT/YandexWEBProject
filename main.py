@@ -8,6 +8,7 @@ from forms.login_user import LoginForm
 from data import db_session
 from data import users_resource, products_resource
 import json
+import ast
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -100,10 +101,16 @@ def bin_add():
     db_sess = db_session.create_session()
     product_id_bin = str(json.loads(request.data)['id'])
     user = db_sess.query(User).filter(User.username == current_user.username).first()
-    user.bin = str(user.bin) + ' ' + str(product_id_bin)
+    product = db_sess.query(Product).get(product_id_bin)
+    list_product = {'product': product.to_dict(
+            only=('id', 'title', 'count', 'price', 'image'))}
+    inter = ast.literal_eval(user.bin)
+    if list_product in inter:
+        return {'200': 'Accept'}
+    inter.append(list_product)
+    user.bin = str(inter)
     db_sess.commit()
     return {'200': 'Accept'}
-
 
 @app.route('/fav')
 @login_required
@@ -119,9 +126,16 @@ def fav():
 @login_required
 def favourite_add():
     db_sess = db_session.create_session()
-    product_id_favourite = str(json.loads(request.data)['id'])
+    product_id_fav = str(json.loads(request.data)['id'])
     user = db_sess.query(User).filter(User.username == current_user.username).first()
-    user.favourite = user.bin + ' ' + product_id_favourite
+    product = db_sess.query(Product).get(product_id_fav)
+    list_product = {'product': product.to_dict(
+            only=('id', 'title', 'count', 'price', 'image'))}
+    inter = ast.literal_eval(user.fav)
+    if list_product in inter:
+        return {'200': 'Accept'}
+    inter.append(list_product)
+    user.favourite = str(inter)
     db_sess.commit()
     return {'200': 'Accept'}
 
@@ -130,7 +144,6 @@ def favourite_add():
 @login_required
 def logout():
     logout_user()
-    session['login'] = None
     return redirect("/")
 
 

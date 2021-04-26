@@ -19,7 +19,7 @@ class User(SqlAlchemyBase, UserMixin, SerializerMixin):
                                       default=datetime.datetime.now)
     is_admin = sqlalchemy.Column(sqlalchemy.Boolean, nullable=True, default=False)
     favourite = sqlalchemy.Column(sqlalchemy.String, nullable=True, default='')
-    bin = sqlalchemy.Column(sqlalchemy.String, nullable=True, default='')
+    bin = sqlalchemy.Column(sqlalchemy.String, nullable=True, default='[]')
 
     def __repr__(self):
         return self.username
