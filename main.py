@@ -97,8 +97,31 @@ def bin():
 @app.route('/add_bin', methods=['GET', 'POST'])
 @login_required
 def bin_add():
-    print(str(json.loads(request.data)['id']))
     db_sess = db_session.create_session()
+    product_id_bin = str(json.loads(request.data)['id'])
+    user = db_sess.query(User).filter(User.username == current_user.username).first()
+    user.bin = user.bin + ' ' + product_id_bin
+    db_sess.commit()
+    return {'200': 'Accept'}
+
+@app.route('/fav')
+@login_required
+def fav():
+    db_sess = db_session.create_session()
+    fav_sess = db_sess.query(User).get(current_user.id)
+    fav_list = {'product': fav_sess.to_dict(
+            only=('favourite',))}
+    return render_template('fav.html', list_product=fav_list)
+
+
+@app.route('/add_favourite', methods=['GET', 'POST'])
+@login_required
+def favourite_add():
+    db_sess = db_session.create_session()
+    product_id_favourite = str(json.loads(request.data)['id'])
+    user = db_sess.query(User).filter(User.username == current_user.username).first()
+    user.favourite = user.bin + ' ' + product_id_favourite
+    db_sess.commit()
     return {'200': 'Accept'}
 
 

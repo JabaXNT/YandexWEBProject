@@ -2,48 +2,50 @@
 
 
 {% block content %}
-<figure style="margin-left: auto; margin-right: auto; margin-top: 15px; width: 80%; background: #7C7C7C; border-radius: 10px; display: flex; justify-content: center">
+<figure
+    style="margin-left: auto; margin-right: auto; margin-top: 15px; width: 80%; background: #7C7C7C; border-radius: 10px; display: flex; justify-content: center">
     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel">
             <div class="carousel-item active">
                 <img style="height: 400px; width: 300px; border-radius: 20px;"
-                     src="{{ list_product['product']['image'][1:-1].split(',').1[2:-1] }}" class="d-block w-100"
-                     alt="Тут что то должно быть">
+                    src="{{ list_product['product']['image'][1:-1].split(',').1[2:-1] }}" class="d-block w-100"
+                    alt="Тут что то должно быть">
             </div>
             {% for n in list_product['product']['image'][1:-1].split(', ')[1:] %}
             <div class="carousel-item">
                 <img src="{{n[1:-1]}}" style="height: 400px; width: 300px; border-radius: 20px;" class="d-block w-100"
-                     alt="Тут что то должно быть">
+                    alt="Тут что то должно быть">
             </div>
             {% endfor %}
         </div>
         <button style="height: 400px" class="carousel-control-prev" type="button"
-                data-bs-target="#carouselExampleControls"
-                data-bs-slide="prev">
+            data-bs-target="#carouselExampleControls" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
         </button>
         <button style="height: 400px" class="carousel-control-next" type="button"
-                data-bs-target="#carouselExampleControls"
-                data-bs-slide="next">
+            data-bs-target="#carouselExampleControls" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </button>
     </div>
-    <figure style="background: #ff9d5a; border-radius: 10px; margin-left: 10px; width: 77%; height: 600px; margin-right: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); margin-top: 10px">
+    <figure
+        style="background: #ff9d5a; border-radius: 10px; margin-left: 10px; width: 77%; height: 600px; margin-right: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); margin-top: 10px">
         <div style="position: relative; left: 35px; top: 15px; width:50%"><b>{{ list_product['product']['title'] }}</b>
         </div>
         <div class="buy" style="position:relative; left: 65%">Цена: <b>{{ list_product['product']['price'] }}</b><br>
             Количество: <input type="number" min="1" max="{{list_product['product']['count']}}" placeholder="..."
-                               style="border-radius: 10px; border: 0px; width: 15%; outline: none;"><br/>
-            <button style="border-radius: 10px; border: 0; background: #ff6000; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); padding: 6px; margin-top: 10px"
-                    onclick="fetch ('/add_bin', {
+                style="border-radius: 10px; border: 0px; width: 15%; outline: none;"><br />
+            <button
+                style="border-radius: 10px; border: 0; background: #ff6000; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); padding: 6px; margin-top: 10px"
+                onclick="fetch ('/add_bin', {
   method: 'POST',
   body: JSON.stringify({id: {{list_product['product']['id']}}})})">
                 Добавить в корзину
             </button>
-            <br/>
-            <button style="border-radius: 10px; border: 0; background: #ff6000; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); padding: 6px; margin-top: 10px">
+            <br />
+            <button
+                style="border-radius: 10px; border: 0; background: #ff6000; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); padding: 6px; margin-top: 10px">
                 В избранное
             </button>
         </div>
