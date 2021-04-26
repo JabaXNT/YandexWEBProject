@@ -83,6 +83,23 @@ def product(id_products):
     return render_template('products.html', list_product=list_product)
 
 
+@app.route('/bin')
+@login_required
+def bin():
+    db_sess = db_session.create_session()
+    bin_sess = db_sess.query(User).get(current_user.id)
+    bin_list = {'product': bin_sess.to_dict(
+            only=('bin',))}
+    return render_template('bin.html', list_product=bin_list)
+
+
+@app.route('/add_bin')
+@login_required
+def bin_add():
+    db_sess = db_session.create_session()
+    return redirect(f'/products/{1}')
+
+
 @app.route('/logout')
 @login_required
 def logout():
