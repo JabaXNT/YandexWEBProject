@@ -100,9 +100,10 @@ def bin_add():
     db_sess = db_session.create_session()
     product_id_bin = str(json.loads(request.data)['id'])
     user = db_sess.query(User).filter(User.username == current_user.username).first()
-    user.bin = user.bin + ' ' + product_id_bin
+    user.bin = str(user.bin) + ' ' + str(product_id_bin)
     db_sess.commit()
     return {'200': 'Accept'}
+
 
 @app.route('/fav')
 @login_required
@@ -129,6 +130,7 @@ def favourite_add():
 @login_required
 def logout():
     logout_user()
+    session['login'] = None
     return redirect("/")
 
 
