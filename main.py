@@ -108,8 +108,8 @@ def bin_add():
     list_product = {'product': product.to_dict(
             only=('id', 'title', 'count', 'price'))}
     if list_product in inter:
+        print(user.bin)
         return {'200': 'Accept'}
-    list_product["lenght"] = len(inter)
     inter.append(list_product)
     user.bin = str(inter)
     db_sess.commit()
@@ -138,7 +138,6 @@ def favourite_add():
             only=('id', 'title', 'count', 'price', 'image'))}
     if list_product in inter:
         return {'200': 'Accept'}
-    list_product["lenght"] = len(inter)
     inter.append(list_product)
     user.favourite = str(inter)
     db_sess.commit()
