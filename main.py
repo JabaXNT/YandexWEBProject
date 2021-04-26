@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session, jsonify
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required
 from flask_restful import Api
 from data.user import User
@@ -7,6 +7,7 @@ from forms.reg_user import RegisterForm
 from forms.login_user import LoginForm
 from data import db_session
 from data import users_resource, products_resource
+import json
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -79,7 +80,7 @@ def product(id_products):
     db_sess = db_session.create_session()
     product = db_sess.query(Product).get(id_products)
     list_product = {'product': product.to_dict(
-            only=('title', 'count', 'price', 'image'))}
+            only=('id', 'title', 'count', 'price', 'image'))}
     return render_template('products.html', list_product=list_product)
 
 
@@ -93,11 +94,12 @@ def bin():
     return render_template('bin.html', list_product=bin_list)
 
 
-@app.route('/add_bin')
+@app.route('/add_bin', methods=['GET', 'POST'])
 @login_required
 def bin_add():
+    print(str(json.loads(request.data)['id']))
     db_sess = db_session.create_session()
-    return redirect(f'/products/{1}')
+    return {'200': 'Accept'}
 
 
 @app.route('/logout')
