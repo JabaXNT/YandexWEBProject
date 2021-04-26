@@ -85,7 +85,7 @@ def product(id_products):
     return render_template('products.html', list_product=list_product)
 
 
-@app.route('/bin')
+@app.route('/bin', methods=['GET', 'POST'])
 @login_required
 def bin():
     db_sess = db_session.create_session()
@@ -111,6 +111,7 @@ def bin_add():
     user.bin = str(inter)
     db_sess.commit()
     return {'200': 'Accept'}
+
 
 @app.route('/fav')
 @login_required
@@ -144,6 +145,7 @@ def favourite_add():
 @login_required
 def logout():
     logout_user()
+    session['login'] = None
     return redirect("/")
 
 
@@ -154,3 +156,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
