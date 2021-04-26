@@ -28,6 +28,16 @@ class UserResource(Resource):
         session.delete(news)
         session.commit()
         return jsonify({'success': 'OK'})
+    
+    def post(self, user_id):
+        args = parser.parse_args()
+        session = db_session.create_session()
+        user = session.query(User).get(user_id)
+        user.surname=args['username'],
+        user.email=args['email'],
+        user.set_password(args['hashed_password'])
+        session.commit()
+        return jsonify({'success': 'OK'})
 
 
 class UserListResource(Resource):
