@@ -36,7 +36,10 @@
         <div class="buy" style="position:relative; left: 65%">Цена: <b>{{ list_product['product']['price'] }}</b><br>
             Количество: <input type="number" min="1" max="{{list_product['product']['count']}}" placeholder="..."
                                style="border-radius: 10px; border: 0px; width: 15%; outline: none;"><br/>
-            <button style="border-radius: 10px; border: 0; background: #ff6000; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); padding: 6px; margin-top: 10px">
+            <button style="border-radius: 10px; border: 0; background: #ff6000; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); padding: 6px; margin-top: 10px"
+                    onclick="fetch ('/add_bin', {
+  method: 'POST',
+  body: JSON.stringify({id: {{list_product['product']['id']}}})})">
                 Добавить в корзину
             </button>
             <br/>
