@@ -68,8 +68,9 @@
                                                                       style="width: 4%; position: relative; float: right"></a>
         <a onclick="fetch ('/del_product', {
   method: 'POST',
-  body: JSON.stringify({content: {id: {{list_product['product']['id']}} }})}), window.location.reload();"><img src="../static/delete.png"
-                                                                                       style="width: 4%; position: relative; float: right"></a>
+  body: JSON.stringify({content: {id: {{list_product['product']['id']}} }})}), window.location.reload();"><img
+                src="../static/delete.png"
+                style="width: 4%; position: relative; float: right"></a>
         {% endif %}
         <div style="position: relative; left: 35px; top: 15px; width:50%"><b>{{
             list_product['product']['title'] }}</b>

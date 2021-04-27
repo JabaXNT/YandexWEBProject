@@ -11,6 +11,33 @@
     <title>Exchange</title>
 </head>
 <body>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Создание товара</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body">
+                Название: <input type="text" class="form-control" id="title">
+                Количество (На складе) <input type="number" class="form-control" id="count" min="1">
+                Цена <input type="number" class="form-control" id="price" min="1">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn" style="background: #ff9d5a" data-bs-dismiss="modal" onclick="fetch ('/add_product', {
+  method: 'POST',
+  body: JSON.stringify({content: {title: document.getElementById('title').value, count: document.getElementById('count').value,
+  price: document.getElementById('price').value} })}), window.location.reload();">
+                    Сохранить изменения
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <figure class="figure"></figure>
 <header
         style="background-color: #7C7C7C; width: 100%; text-align: center; border-radius: 0 0 10px 10px; box-shadow: 0 0 5px;"
@@ -62,6 +89,7 @@
     <a href="/bin"><img src="../static/shopping.png" style="width: 45px; border-radius: 20px"></a>
     <figure style="background: red; border-radius: 20px; position: relative; right: 15px; width: 24px; height: 24px">1
     </figure>
+    <a data-bs-toggle="modal" data-bs-target="#exampleModal"><img src="../static/shop.png" style="width: 45px; border-radius: 20px"></a>
     {% endif %}
 </header>
 {% block content %}
