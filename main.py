@@ -104,6 +104,7 @@ def bin():
 def bin_add():
     db_sess = db_session.create_session()
     product_id_bin = str(json.loads(request.data)['id'])
+    print(json.loads(request.data))
     user = db_sess.query(User).filter(
         User.username == current_user.username).first()
     product = db_sess.query(Product).get(product_id_bin)
@@ -139,7 +140,6 @@ def del_bin():
 def edit_bin():
     db_sess = db_session.create_session()
     product_data = json.loads(request.data)['content']
-    print(product_data)
     product = db_sess.query(Product).filter(
         Product.id == product_data['id']).first()
     product.title = product_data['title']
@@ -182,7 +182,7 @@ def favourite_add():
     user = db_sess.query(User).filter(
         User.username == current_user.username).first()
     product = db_sess.query(Product).get(product_id_fav)
-    inter = ast.literal_eval(user.fav)
+    inter = ast.literal_eval(user.favourite)
     list_product = {'product': product.to_dict(
         only=('id', 'title', 'count', 'price', 'image'))}
     if list_product in inter:

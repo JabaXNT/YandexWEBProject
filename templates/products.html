@@ -76,18 +76,22 @@
             Количество (На складе): {{ list_product['product']['count'] }}<br/>
             {% endif %}
 
-            Количество: <input type="number" min="1" max="{{list_product['product']['count']}}"
-                               placeholder="..."
+            Количество: <input type="number" min="1" id="count_to_buy" value="1"
+                               max="{{list_product['product']['count']}}"
                                style="border-radius: 10px; border: 0px; width: 15%; outline: none;"><br/>
             <button
                     style="border-radius: 10px; border: 0; background: #ff6000; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); padding: 6px; margin-top: 10px"
                     onclick="fetch ('/add_bin', {
   method: 'POST',
-  body: JSON.stringify({id: {{list_product['product']['id']}}})})">
+  body: JSON.stringify({id: {{list_product['product']['id']}}, count: document.getElementById('count_to_buy').value  })})">
                 Добавить в корзину
             </button>
             <br/>
             <button
+                    style="border-radius: 10px; border: 0; background: #ff6000; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); padding: 6px; margin-top: 10px"
+                    onclick="fetch ('/add_favourite', {
+  method: 'POST',
+  body: JSON.stringify({id: {{list_product['product']['id']}}, count: document.getElementById('count_to_buy').value  })})"
                     style="border-radius: 10px; border: 0; background: #ff6000; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); padding: 6px; margin-top: 10px">
                 В избранное
             </button>
