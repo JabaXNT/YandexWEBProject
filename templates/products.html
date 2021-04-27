@@ -10,16 +10,20 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
             </div>
             <div class="modal-body">
-                Название: <input type="text" class="form-control" value="{{list_product['product']['title']}}">
-                Количество (На складе) <input type="number" class="form-control" min="1"
+                Название: <input type="text" class="form-control" id="title"
+                                 value="{{list_product['product']['title']}}">
+                Количество (На складе) <input type="number" class="form-control" id="count" min="1"
                                               value="{{list_product['product']['count']}}">
-                Цена <input type="number" class="form-control" min="1" value="{{list_product['product']['price']}}">
+                Цена <input type="number" class="form-control" id="price" min="1"
+                            value="{{list_product['product']['price']}}">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                <button type="button" class="btn" style="background: #ff9d5a" onclick="fetch ('/edit_product', {
+                <button type="button" class="btn" style="background: #ff9d5a" data-bs-dismiss="modal" onclick="fetch ('/edit_product', {
   method: 'POST',
-  body: JSON.stringify({content: {{list_product['product']}} })})">Сохранить изменения
+  body: JSON.stringify({content: {id: {{list_product['product']['id']}}, title: document.getElementById('title').value, count: document.getElementById('count').value,
+  price: document.getElementById('price').value} })}), window.location.reload();">
+                    Сохранить изменения
                 </button>
             </div>
         </div>
@@ -72,18 +76,22 @@
             Количество (На складе): {{ list_product['product']['count'] }}<br/>
             {% endif %}
 
-            Количество: <input type="number" min="1" max="{{list_product['product']['count']}}"
-                               placeholder="..."
+            Количество: <input type="number" min="1" id="count_to_buy" value="1"
+                               max="{{list_product['product']['count']}}"
                                style="border-radius: 10px; border: 0px; width: 15%; outline: none;"><br/>
             <button
                     style="border-radius: 10px; border: 0; background: #ff6000; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); padding: 6px; margin-top: 10px"
                     onclick="fetch ('/add_bin', {
   method: 'POST',
-  body: JSON.stringify({id: {{list_product['product']['id']}}})})">
+  body: JSON.stringify({id: {{list_product['product']['id']}}, count: document.getElementById('count_to_buy').value  })})">
                 Добавить в корзину
             </button>
             <br/>
             <button
+                    style="border-radius: 10px; border: 0; background: #ff6000; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); padding: 6px; margin-top: 10px"
+                    onclick="fetch ('/add_favourite', {
+  method: 'POST',
+  body: JSON.stringify({id: {{list_product['product']['id']}}, count: document.getElementById('count_to_buy').value  })})"
                     style="border-radius: 10px; border: 0; background: #ff6000; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); padding: 6px; margin-top: 10px">
                 В избранное
             </button>
