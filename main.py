@@ -207,6 +207,7 @@ def del_bin():
 def edit_product():
     db_sess = db_session.create_session()
     product_data = json.loads(request.data)['content']
+    print(product_data)
     product = db_sess.query(Product).filter(
         Product.id == product_data['id']).first()
     product.title = product_data['title']
@@ -216,7 +217,7 @@ def edit_product():
     return {'200': 'Accept'}
 
 
-@app.route('/add_product', methods=['POST'])
+@app.route('/add_product', methods=['GET', 'POST'])
 @login_required
 def add_product():
     db_sess = db_session.create_session()
@@ -225,7 +226,7 @@ def add_product():
         title=product_data['title'],
         price=product_data['price'],
         count=product_data['count'],
-        image='https://sun9-57.userapi.com/impf/c626118/v626118034/745ca/LEGJY4cuLG0.jpg?size=640x640&quality=96&sign=8da868aa7dcb22613d43c3157da4be6f&type=album'
+        image="['https://sun9-57.userapi.com/impf/c626118/v626118034/745ca/LEGJY4cuLG0.jpg?size=640x640&quality=96&sign=8da868aa7dcb22613d43c3157da4be6f&type=album', 'https://sun9-57.userapi.com/impf/c626118/v626118034/745ca/LEGJY4cuLG0.jpg?size=640x640&quality=96&sign=8da868aa7dcb22613d43c3157da4be6f&type=album']"
     )
     db_sess.add(product)
     db_sess.commit()
@@ -251,13 +252,16 @@ def logout():
     session['login'] = None
     return redirect("/")
 
+
 @app.route('/buy')
 def buy():
     return render_template('footer.html')
 
+
 @app.route('/payment')
 def payment():
     return render_template('footer.html')
+
 
 @app.route('/contacts')
 def contacts():

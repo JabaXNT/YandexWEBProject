@@ -12,24 +12,24 @@
 </head>
 <body>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Создание товара</h5>
+                <h5 class="modal-title" id="exampleModalLabel1">Создание товара</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
             </div>
             <div class="modal-body">
-                Название: <input type="text" class="form-control" id="title">
-                Количество (На складе) <input type="number" class="form-control" id="count" min="1">
-                Цена <input type="number" class="form-control" id="price" min="1">
+                Название: <input type="text" class="form-control" id="title1">
+                Количество (На складе) <input type="number" class="form-control" id="count1" min="1">
+                Цена <input type="number" class="form-control" id="price1" min="1">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
                 <button type="button" class="btn" style="background: #ff9d5a" data-bs-dismiss="modal" onclick="fetch ('/add_product', {
   method: 'POST',
-  body: JSON.stringify({content: {title: document.getElementById('title').value, count: document.getElementById('count').value,
-  price: document.getElementById('price').value} })}), window.location.reload();">
+  body: JSON.stringify({content: {title: document.getElementById('title1').value, count: document.getElementById('count1').value,
+  price: document.getElementById('price1').value} })}), window.location.reload();">
                     Сохранить изменения
                 </button>
             </div>
@@ -89,11 +89,12 @@
     <a href="/bin"><img src="../static/shopping.png" style="width: 45px; border-radius: 20px"></a>
     <figure style="background: red; border-radius: 20px; position: relative; right: 15px; width: 24px; height: 24px">1
     </figure>
-    <a data-bs-toggle="modal" data-bs-target="#exampleModal"><img src="../static/shop.png" style="width: 45px; border-radius: 20px"></a>
+    <a data-bs-toggle="modal" data-bs-target="#exampleModal1"><img src="../static/shop.png" style="width: 45px; border-radius: 20px"></a>
     {% endif %}
 </header>
 {% block content %}
 {% endblock %}
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <footer class="footer">
     <a class="footer_link" href="/buy" style="text-decoration: None; color: black"
        onmouseover="this.style.color='rgba(0,0,0,0.79)'"
