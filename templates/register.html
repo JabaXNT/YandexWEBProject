@@ -1,0 +1,47 @@
+<head>
+    <title>Регистрация</title>
+    <link href="../static/style.css" rel="stylesheet">
+</head>
+<div class='footer_registration'><b>Регистрация</b></div>
+<p style="text-align: center"><a href="/"><img src="../static/exchange-01_4x.png" height="250" width="350"/></a></p>
+<form class='form_registration' action="" method="post" style="text-align: center">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.email.label }}<br>
+        {{ form.email(class="form-control", type="email") }}<br>
+        {% for error in form.email.errors %}</p>
+    <p class="alert alert-danger" role="alert">
+        {{ error }}
+    </p>
+    {% endfor %}
+    <p>
+        {{ form.password.label }}<br>
+        {{ form.password(class="form-control", type="password") }}<br>
+        {% for error in form.password.errors %}</p>
+    <p class="alert alert-danger" role="alert">
+        {{ error }}
+    </p>
+    {% endfor %}
+    <p>
+        {{ form.password_again.label }}<br>
+        {{ form.password_again(class="form-control", type="password") }}<br>
+        {% for error in form.password_again.errors %}</p>
+    <p class="alert alert-danger" role="alert">
+        {{ error }}
+    </p>
+    {% endfor %}
+    <p>
+        {{ form.username.label }}<br>
+        {{ form.username(class="form-control") }}<br>
+        {% for error in form.username.errors %}</p>
+    <p style="margin-bottom: 10px" class="alert alert-danger" role="alert">
+        {{ error }}
+    </p>
+    {% endfor %}
+    <p><a href="login" style="position: relative; top: -15px; text-decoration: None; color: black"
+          onmouseover="this.style.color='rgba(0,0,0,0.79)'"
+          onmouseout="this.style.color='rgb(0,0,0)'">Уже зарегистрированы? -> Войти</a><br/>
+        {{ form.submit(type="submit", class="btn btn-primary") }}</p>
+    {{message}}
+</form>
+</html>

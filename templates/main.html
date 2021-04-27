@@ -1,0 +1,114 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/icons/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link href="/static/style.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <title>Exchange</title>
+</head>
+<body>
+
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1">Создание товара</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body">
+                Название: <input type="text" class="form-control" id="title1">
+                Количество (На складе) <input type="number" class="form-control" id="count1" min="1">
+                Цена <input type="number" class="form-control" id="price1" min="1">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn" style="background: #ff9d5a" data-bs-dismiss="modal" onclick="fetch ('/add_product', {
+  method: 'POST',
+  body: JSON.stringify({content: {title: document.getElementById('title1').value, count: document.getElementById('count1').value,
+  price: document.getElementById('price1').value} })}), window.location.reload();">
+                    Сохранить изменения
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<figure class="figure"></figure>
+<header
+        style="background-color: #7C7C7C; width: 100%; text-align: center; border-radius: 0 0 10px 10px; box-shadow: 0 0 5px;"
+        class="flex-container">
+    <a href="/"><img src="../static/exchange-01_4x.png" height="100" width="150"
+                     style="display: inline-block; margin-right: -10px"/></a>
+    <!--Главная-->
+    <div style="margin-right: 10px" class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #FF9D5A; border-radius: 10px">
+            <img src="../static/list.png"/>
+            <ruby onmouseover="this.style.color='#FFE5E5E5'" onmouseout="this.style.color='white'">Каталог</ruby>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item">Действие</a></li>
+            <li><a class="dropdown-item">Другое действие</a></li>
+            <li><a class="dropdown-item">Что-то еще здесь</a></li>
+        </ul>
+    </div>
+    <!--Каталог-->
+    <div class="input-group mb-3" style="width: 40%; height: auto">
+        <input type="text" class="form-control" placeholder="Продукт..." style="border-radius: 10px;"
+               aria-label="Имя пользователя получателя" aria-describedby="basic-addon2">
+        <span class="input-group-text" id="basic-addon2"
+              style="height: fit-content; background: #ff9d5a; border-color: #ff9d5a; color: white;position: relative; border-radius: 10px"><a
+                href="/search" style="text-decoration: None; color: white;"
+                onmouseover="this.style.color='#FFE5E5E5'" onmouseout="this.style.color='white'">Поиск</a></span>
+    </div>
+    <!--Поиск-->
+    {% if session['login'] is none %}
+    <a href="/reg"><img src="../static/account.png" style="width: 40px; border-radius: 20px"></a>
+    <!--ЛК нет-->
+    {% elif session['login'] is not none %}
+    <div style="display:flex; justify-content: center">
+        <button style="border: 0px; background: 0"><a style="text-decoration: None; color: black"
+                                                      onmouseover="this.style.color='rgba(0,0,0,0.79)'"
+                                                      onmouseout="this.style.color='rgb(0,0,0)'">{{session['login']}}</a><br/>
+            <a style="text-decoration: None; color: white; background: red; border-radius: 10px; padding: 3px"
+               onmouseover="this.style.color='rgba(0,0,0,0.79)'"
+               onmouseout="this.style.color='rgb(255,255,255)'" href="/logout">Выйти</a>
+        </button>
+    </div>
+    <!--ЛК-->
+    <a href="/favorite"><img src="../static/favorite.png" style="width: 40px; border-radius: 20px"></a>
+    <!--Фавориты-->
+    <figure style="background: red; border-radius: 20px; position: relative; right: 15px; width: 24px; height: 24px">1
+    </figure>
+    <!--Количество фаворитов-->
+    <a href="/bin"><img src="../static/shopping.png" style="width: 45px; border-radius: 20px"></a>
+    <figure style="background: red; border-radius: 20px; position: relative; right: 15px; width: 24px; height: 24px">1
+    </figure>
+    <a data-bs-toggle="modal" data-bs-target="#exampleModal1"><img src="../static/shop.png" style="width: 45px; border-radius: 20px"></a>
+    {% endif %}
+</header>
+{% block content %}
+{% endblock %}
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<footer class="footer">
+    <a class="footer_link" href="/buy" style="text-decoration: None; color: black"
+       onmouseover="this.style.color='rgba(0,0,0,0.79)'"
+       onmouseout="this.style.color='rgb(0,0,0)'"><b>Покупателю</b><br/> Доставка и оплата<br/>Правила
+        возврата</a>
+    <a class="footer_link" href="/payment" style="text-decoration: None; color: black"
+       onmouseover="this.style.color='rgba(0,0,0,0.79)'" onmouseout="this.style.color='rgb(0,0,0)'"><b>Способы
+        оплаты</b></a>
+    <a class="footer_link" href="/contacts" style="text-decoration: None; color: black"
+       onmouseover="this.style.color='rgba(0,0,0,0.79)'"
+       onmouseout="this.style.color='rgb(0,0,0)'"><b>Контакты</b></a>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+        crossorigin="anonymous"></script>
+</body>
+</html>

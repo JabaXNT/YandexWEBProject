@@ -11,16 +11,18 @@ class User(SqlAlchemyBase, UserMixin, SerializerMixin):
 
     id = sqlalchemy.Column(sqlalchemy.Integer,
                            primary_key=True, autoincrement=True)
-    surname = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    name = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    username = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     email = sqlalchemy.Column(sqlalchemy.String,
                               index=True, unique=True, nullable=True)
     hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     modified_date = sqlalchemy.Column(sqlalchemy.DateTime,
                                       default=datetime.datetime.now)
+    is_admin = sqlalchemy.Column(sqlalchemy.Boolean, nullable=True, default=False)
+    favourite = sqlalchemy.Column(sqlalchemy.String, nullable=True, default='[]')
+    bin = sqlalchemy.Column(sqlalchemy.String, nullable=True, default='[]')
 
     def __repr__(self):
-        return f"User {self.name} {self.surname}"
+        return self.username
 
     def set_password(self, password):
         self.hashed_password = generate_password_hash(password)
