@@ -7,14 +7,29 @@
 {% for i in range(a | length) %}
 <div>
     <figure style="display:flex; margin-top: 10px; justify-content: center; background: #afafaf; position:relative; width: 60%; left: 20%; border-radius: 10px">
-        {{dict(a['product']['image']).0}}
-        {% if a | length == 1 %}
 
-        <p style="position:relative; right: 100px; text-align: right">{{ a['product']['title'] }}</p>
-        <p style="position:relative; left: 10px">{{ a['product']['count'] }}</p>
+        {% if a | length == 1 %}
+        <img src="{{dict(a['product']['image']).0}}"
+             style="height:230px; width: 35%; border-radius: 10px; margin-top: 10px; margin-bottom: 10px; box-shadow: 0 0 10px">
+        <div style="width: 60%; background: #ffbe93; border-radius: 10px; box-shadow: 0 0 10px; margin: 10px;">
+            <p style="position:relative; right: 100px; text-align: right">{{ a['product']['title'] }}</p>
+            <div style="text-align: center">
+                <p>{{ a['product']['count'] }}</p>
+            </div>
+        </div>
         {% else %}
-        <p style="position:relative; right: 100px; text-align: right">{{ a[i]['product']['title'] }}</p>
-        <p style="position:relative; left: 10px">{{ a[i]['product']['count'] }}</p>
+        <img src="{{dict(a[i]['product']['image']).0}}"
+             style="height:230px; width: 35%; border-radius: 10px; margin-top: 10px; margin-bottom: 10px; box-shadow: 0 0 10px">
+        <div style="width: 60%; background: #ffbe93; border-radius: 10px; box-shadow: 0 0 10px; margin: 10px;">
+            <p style="position:relative; right: 100px; text-align: right">{{ a[i]['product']['title'] }}</p>
+            <div style="position: relative; top: 30%; left: 40%; background: #ff9d5a; border-radius: 10px; display: inline-block; padding: 5px">
+                <p>Цена: {{ a[i]['product']['price'] | int * a[i]['product']['count'] | int}}</p>
+                <p>Количество: {{ a[i]['product']['count'] }}</p>
+            </div>
+            <a onclick="fetch ('/del_bin', {
+  method: 'POST',
+  body: JSON.stringify({content: {id: {{a[i]['product']['id']}} }})}), window.location.reload();"><img src="../static/delete.png" style="width: 5%; float: right; margin-top: 40%"></a>
+        </div>
         {% endif %}
     </figure>
 </div>

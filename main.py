@@ -170,11 +170,11 @@ def del_fav():
     return {'200': 'Accept'}
 
 
-@app.route('/del_bin')
+@app.route('/del_bin', methods=['GET', 'POST'])
 @login_required
 def del_bin():
     db_sess = db_session.create_session()
-    product_id_bin = str(json.loads(request.data)['id'])
+    product_id_bin = str(json.loads(request.data)['content']['id'])
     user = db_sess.query(User).filter(
         User.username == current_user.username).first()
     inter = ast.literal_eval(user.bin)
