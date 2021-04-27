@@ -99,22 +99,70 @@ def bin():
     return render_template('bin.html', list_product=bin_list)
 
 
+@app.route('/fav')
+@login_required
+def fav():
+    db_sess = db_session.create_session()
+    fav_sess = db_sess.query(User).get(current_user.id)
+    fav_list = {'product': fav_sess.to_dict(
+        only=('favourite',))}
+    return render_template('fav.html', list_product=fav_list)
+
+
 @app.route('/add_bin', methods=['GET', 'POST'])
 @login_required
 def bin_add():
     db_sess = db_session.create_session()
     product_id_bin = str(json.loads(request.data)['id'])
-    print(json.loads(request.data))
+    product_count_bin = str(json.loads(request.data)['count'])
     user = db_sess.query(User).filter(
         User.username == current_user.username).first()
     product = db_sess.query(Product).get(product_id_bin)
     inter = ast.literal_eval(user.bin)
     list_product = {'product': product.to_dict(
         only=('id', 'title', 'count', 'price'))}
+    list_product['count'] = product_count_bin
     if list_product in inter:
         return {'200': 'Accept'}
     inter.append(list_product)
     user.bin = str(inter)
+    db_sess.commit()
+    return {'200': 'Accept'}
+
+
+@app.route('/add_favourite', methods=['GET', 'POST'])
+@login_required
+def favourite_add():
+    db_sess = db_session.create_session()
+    product_id_fav = str(json.loads(request.data)['id'])
+    product_count_fav = str(json.loads(request.data)['count'])
+    user = db_sess.query(User).filter(
+        User.username == current_user.username).first()
+    product = db_sess.query(Product).get(product_id_fav)
+    inter = ast.literal_eval(user.favourite)
+    list_product = {'product': product.to_dict(
+        only=('id', 'title', 'count', 'price', 'image'))}
+    list_product['count'] = product_count_fav
+    if list_product in inter:
+        return {'200': 'Accept'}
+    inter.append(list_product)
+    user.favourite = str(inter)
+    db_sess.commit()
+    return {'200': 'Accept'}
+
+
+@app.route('/del_fav')
+@login_required
+def del_fav():
+    db_sess = db_session.create_session()
+    product_id_fav = str(json.loads(request.data)['id'])
+    user = db_sess.query(User).filter(
+        User.username == current_user.username).first()
+    inter = ast.literal_eval(user.favourite)
+    for i in range(len(inter)):
+        if product_id_fav == inter[i]['product']['id']:
+            del inter[i]
+    user.favourite = str(inter)
     db_sess.commit()
     return {'200': 'Accept'}
 
@@ -160,51 +208,6 @@ def add_product():
         count=product_data['count'],
     )
     db_sess.add(product)
-    db_sess.commit()
-    return {'200': 'Accept'}
-
-
-@app.route('/fav')
-@login_required
-def fav():
-    db_sess = db_session.create_session()
-    fav_sess = db_sess.query(User).get(current_user.id)
-    fav_list = {'product': fav_sess.to_dict(
-        only=('favourite',))}
-    return render_template('fav.html', list_product=fav_list)
-
-
-@app.route('/add_favourite', methods=['GET', 'POST'])
-@login_required
-def favourite_add():
-    db_sess = db_session.create_session()
-    product_id_fav = str(json.loads(request.data)['id'])
-    user = db_sess.query(User).filter(
-        User.username == current_user.username).first()
-    product = db_sess.query(Product).get(product_id_fav)
-    inter = ast.literal_eval(user.favourite)
-    list_product = {'product': product.to_dict(
-        only=('id', 'title', 'count', 'price', 'image'))}
-    if list_product in inter:
-        return {'200': 'Accept'}
-    inter.append(list_product)
-    user.favourite = str(inter)
-    db_sess.commit()
-    return {'200': 'Accept'}
-
-
-@app.route('/del_fav')
-@login_required
-def del_fav():
-    db_sess = db_session.create_session()
-    product_id_fav = str(json.loads(request.data)['id'])
-    user = db_sess.query(User).filter(
-        User.username == current_user.username).first()
-    inter = ast.literal_eval(user.bin)
-    for i in range(len(inter)):
-        if product_id_fav == inter[i]['product']['id']:
-            del inter[i]
-    user.fav = str(inter)
     db_sess.commit()
     return {'200': 'Accept'}
 
