@@ -121,8 +121,9 @@ def bin_add():
     inter = ast.literal_eval(user.bin)
     list_product = {'product': product.to_dict(
         only=('id', 'title', 'count', 'price'))}
-    list_product['count'] = product_count_bin
+    list_product['product']['count'] = product_count_bin
     if list_product in inter:
+        print(inter.index[list_product['product']['title']])
         return {'200': 'Accept'}
     inter.append(list_product)
     user.bin = str(inter)
@@ -142,7 +143,7 @@ def favourite_add():
     inter = ast.literal_eval(user.favourite)
     list_product = {'product': product.to_dict(
         only=('id', 'title', 'count', 'price', 'image'))}
-    list_product['count'] = product_count_fav
+    list_product['product']['count'] = product_count_fav
     if list_product in inter:
         return {'200': 'Accept'}
     inter.append(list_product)
