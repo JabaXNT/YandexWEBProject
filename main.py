@@ -1,14 +1,16 @@
-from flask import Flask, render_template, request, redirect, session, jsonify
+import ast
+import json
+
+from flask import Flask, render_template, request, redirect, session
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required
 from flask_restful import Api
-from data.user import User
-from data.products import Product
-from forms.reg_user import RegisterForm
-from forms.login_user import LoginForm
+
 from data import db_session
 from data import users_resource, products_resource
-import json
-import ast
+from data.products import Product
+from data.user import User
+from forms.login_user import LoginForm
+from forms.reg_user import RegisterForm
 
 app = Flask(__name__)
 app.add_template_global(ast.literal_eval, name='dict')
@@ -120,7 +122,7 @@ def bin_add():
     product = db_sess.query(Product).get(product_id_bin)
     inter = ast.literal_eval(user.bin)
     list_product = {'product': product.to_dict(
-        only=('id', 'title', 'count', 'price'))}
+        only=('id', 'title', 'count', 'price', 'image'))}
     list_product['product']['count'] = product_count_bin
     if list_product in inter:
         print(inter.index[list_product['product']['title']])

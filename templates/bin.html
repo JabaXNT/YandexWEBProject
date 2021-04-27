@@ -7,7 +7,9 @@
 {% for i in range(a | length) %}
 <div>
     <figure style="display:flex; margin-top: 10px; justify-content: center; background: #afafaf; position:relative; width: 60%; left: 20%; border-radius: 10px">
+        {{dict(a['product']['image']).0}}
         {% if a | length == 1 %}
+
         <p style="position:relative; right: 100px; text-align: right">{{ a['product']['title'] }}</p>
         <p style="position:relative; left: 10px">{{ a['product']['count'] }}</p>
         {% else %}
