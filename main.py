@@ -125,7 +125,7 @@ def bin_add():
         only=('id', 'title', 'count', 'price', 'image'))}
     list_product['product']['count'] = product_count_bin
     if list_product in inter:
-        print(inter.index[list_product['product']['title']])
+        print(inter.index(list_product['product']['title']))
         return {'200': 'Accept'}
     inter.append(list_product)
     user.bin = str(inter)
