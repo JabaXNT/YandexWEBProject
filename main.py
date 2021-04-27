@@ -231,7 +231,7 @@ def add_product():
     return {'200': 'Accept'}
 
 
-@app.route('/del_product', methods=['POST'])
+@app.route('/del_product', methods=['GET', 'POST'])
 @login_required
 def del_product():
     db_sess = db_session.create_session()
