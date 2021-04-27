@@ -139,6 +139,7 @@ def del_bin():
 def edit_bin():
     db_sess = db_session.create_session()
     product_data = json.loads(request.data)['content']
+    print(product_data)
     product = db_sess.query(Product).filter(
         Product.id == product_data['id']).first()
     product.title = product_data['title']
@@ -150,7 +151,7 @@ def edit_bin():
 
 @app.route('/add_product', methods=['POST'])
 @login_required
-def edit_bin():
+def add_product():
     db_sess = db_session.create_session()
     product_data = json.loads(request.data)['content']
     product = Product(

@@ -10,16 +10,20 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
             </div>
             <div class="modal-body">
-                Название: <input type="text" class="form-control" value="{{list_product['product']['title']}}">
-                Количество (На складе) <input type="number" class="form-control" min="1"
+                Название: <input type="text" class="form-control" id="title"
+                                 value="{{list_product['product']['title']}}">
+                Количество (На складе) <input type="number" class="form-control" id="count" min="1"
                                               value="{{list_product['product']['count']}}">
-                Цена <input type="number" class="form-control" min="1" value="{{list_product['product']['price']}}">
+                Цена <input type="number" class="form-control" id="price" min="1"
+                            value="{{list_product['product']['price']}}">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                <button type="button" class="btn" style="background: #ff9d5a" onclick="fetch ('/edit_product', {
+                <button type="button" class="btn" style="background: #ff9d5a" data-bs-dismiss="modal" onclick="fetch ('/edit_product', {
   method: 'POST',
-  body: JSON.stringify({content: {{list_product['product']}} })})">Сохранить изменения
+  body: JSON.stringify({content: {id: {{list_product['product']['id']}}, title: document.getElementById('title').value, count: document.getElementById('count').value,
+  price: document.getElementById('price').value} })}), window.location.reload();">
+                    Сохранить изменения
                 </button>
             </div>
         </div>
