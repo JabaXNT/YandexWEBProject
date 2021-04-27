@@ -11,6 +11,7 @@ import json
 import ast
 
 app = Flask(__name__)
+app.add_template_global(ast.literal_eval, name='dict')
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 api = Api(app)
 login_manager = LoginManager()
@@ -85,13 +86,14 @@ def product(id_products):
     return render_template('products.html', list_product=list_product)
 
 
-@app.route('/bin')
+@app.route('/bin', methods=['GET', 'POST'])
 @login_required
 def bin():
     db_sess = db_session.create_session()
     bin_sess = db_sess.query(User).get(current_user.id)
     bin_list = {'product': bin_sess.to_dict(
             only=('bin',))}
+    bin_list = bin_list['product']
     return render_template('bin.html', list_product=bin_list)
 
 
@@ -104,7 +106,7 @@ def bin_add():
     product = db_sess.query(Product).get(product_id_bin)
     inter = ast.literal_eval(user.bin)
     list_product = {'product': product.to_dict(
-            only=('id', 'title', 'count', 'price', 'image'))}
+            only=('id', 'title', 'count', 'price'))}
     if list_product in inter:
         print(user.bin)
         return {'200': 'Accept'}
@@ -112,6 +114,7 @@ def bin_add():
     user.bin = str(inter)
     db_sess.commit()
     return {'200': 'Accept'}
+
 
 @app.route('/fav')
 @login_required
@@ -145,6 +148,7 @@ def favourite_add():
 @login_required
 def logout():
     logout_user()
+    session['login'] = None
     return redirect("/")
 
 
@@ -155,3 +159,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
