@@ -248,6 +248,18 @@ def logout():
     session['login'] = None
     return redirect("/")
 
+@app.route('/buy')
+def buy():
+    return render_template('footer.html')
+
+@app.route('/payment')
+def payment():
+    return render_template('footer.html')
+
+@app.route('/contacts')
+def contacts():
+    return render_template('footer.html')
+
 
 def main():
     db_session.global_init('db/products_final.db')
