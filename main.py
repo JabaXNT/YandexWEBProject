@@ -125,8 +125,13 @@ def bin_add():
         only=('id', 'title', 'count', 'price', 'image'))}
     list_product['product']['count'] = product_count_bin
     if list_product in inter:
-        print(inter.index(list_product['product']['title']))
         return {'200': 'Accept'}
+    for i in range(len(inter)):
+        if int(list_product['product']['id']) == inter[i]['product']['id']:
+            inter[i]['product']['count'] = product_count_bin
+            user.bin = str(inter)
+            db_sess.commit()
+            return {'200': 'Accept'}
     inter.append(list_product)
     user.bin = str(inter)
     db_sess.commit()
@@ -148,40 +153,49 @@ def favourite_add():
     list_product['product']['count'] = product_count_fav
     if list_product in inter:
         return {'200': 'Accept'}
+    for i in range(len(inter)):
+        if int(list_product['product']['id']) == inter[i]['product']['id']:
+            inter[i]['product']['count'] = product_count_fav
+            user.bin = str(inter)
+            db_sess.commit()
+            return {'200': 'Accept'}
     inter.append(list_product)
     user.favourite = str(inter)
     db_sess.commit()
     return {'200': 'Accept'}
 
 
-@app.route('/del_fav')
+@app.route('/del_fav', methods=['POST'])
 @login_required
 def del_fav():
     db_sess = db_session.create_session()
-    product_id_fav = str(json.loads(request.data)['id'])
+    product_id_fav = json.loads(request.data)['content']['id']
     user = db_sess.query(User).filter(
         User.username == current_user.username).first()
     inter = ast.literal_eval(user.favourite)
     for i in range(len(inter)):
         if product_id_fav == inter[i]['product']['id']:
             del inter[i]
+            break
     user.favourite = str(inter)
     db_sess.commit()
     return {'200': 'Accept'}
 
 
-@app.route('/del_bin', methods=['GET', 'POST'])
+@app.route('/del_bin', methods=['POST'])
 @login_required
 def del_bin():
     db_sess = db_session.create_session()
-    product_id_bin = str(json.loads(request.data)['content']['id'])
+    product_id_bin = json.loads(request.data)['content']['id']
     user = db_sess.query(User).filter(
         User.username == current_user.username).first()
     inter = ast.literal_eval(user.bin)
     for i in range(len(inter)):
         if product_id_bin == inter[i]['product']['id']:
             del inter[i]
+            break
     user.bin = str(inter)
+    print(user.bin)
     db_sess.commit()
     return {'200': 'Accept'}
 
