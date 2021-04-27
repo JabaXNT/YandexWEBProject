@@ -84,7 +84,7 @@ def product(id_products):
     db_sess = db_session.create_session()
     product = db_sess.query(Product).get(id_products)
     list_product = {'product': product.to_dict(
-            only=('id', 'title', 'count', 'price', 'image'))}
+        only=('id', 'title', 'count', 'price', 'image'))}
     return render_template('products.html', list_product=list_product)
 
 
@@ -94,7 +94,7 @@ def bin():
     db_sess = db_session.create_session()
     bin_sess = db_sess.query(User).get(current_user.id)
     bin_list = {'product': bin_sess.to_dict(
-            only=('bin',))}
+        only=('bin',))}
     bin_list = bin_list['product']
     return render_template('bin.html', list_product=bin_list)
 
@@ -104,11 +104,12 @@ def bin():
 def bin_add():
     db_sess = db_session.create_session()
     product_id_bin = str(json.loads(request.data)['id'])
-    user = db_sess.query(User).filter(User.username == current_user.username).first()
+    user = db_sess.query(User).filter(
+        User.username == current_user.username).first()
     product = db_sess.query(Product).get(product_id_bin)
     inter = ast.literal_eval(user.bin)
     list_product = {'product': product.to_dict(
-            only=('id', 'title', 'count', 'price'))}
+        only=('id', 'title', 'count', 'price'))}
     if list_product in inter:
         return {'200': 'Accept'}
     inter.append(list_product)
@@ -122,7 +123,8 @@ def bin_add():
 def del_bin():
     db_sess = db_session.create_session()
     product_id_bin = str(json.loads(request.data)['id'])
-    user = db_sess.query(User).filter(User.username == current_user.username).first()
+    user = db_sess.query(User).filter(
+        User.username == current_user.username).first()
     inter = ast.literal_eval(user.bin)
     for i in range(len(inter)):
         if product_id_bin == inter[i]['product']['id']:
@@ -136,14 +138,28 @@ def del_bin():
 @login_required
 def edit_bin():
     db_sess = db_session.create_session()
-    product_data = str(json.loads(request.data))
-    # product = db_sess.query(Product).filter(Product.id == product_data['id']).first
-    print(product_data)
-#    product.title = 
-#    product.price =
-#    product.count = 
-#    product.image =
-#    db_sess.commit()
+    product_data = json.loads(request.data)['content']
+    product = db_sess.query(Product).filter(
+        Product.id == product_data['id']).first()
+    product.title = product_data['title']
+    product.price = product_data['price']
+    product.count = product_data['count']
+    db_sess.commit()
+    return {'200': 'Accept'}
+
+
+@app.route('/add_product', methods=['POST'])
+@login_required
+def edit_bin():
+    db_sess = db_session.create_session()
+    product_data = json.loads(request.data)['content']
+    product = Product(
+        title=product_data['title'],
+        price=product_data['price'],
+        count=product_data['count'],
+    )
+    db_sess.add(product)
+    db_sess.commit()
     return {'200': 'Accept'}
 
 
@@ -153,7 +169,7 @@ def fav():
     db_sess = db_session.create_session()
     fav_sess = db_sess.query(User).get(current_user.id)
     fav_list = {'product': fav_sess.to_dict(
-            only=('favourite',))}
+        only=('favourite',))}
     return render_template('fav.html', list_product=fav_list)
 
 
@@ -162,11 +178,12 @@ def fav():
 def favourite_add():
     db_sess = db_session.create_session()
     product_id_fav = str(json.loads(request.data)['id'])
-    user = db_sess.query(User).filter(User.username == current_user.username).first()
+    user = db_sess.query(User).filter(
+        User.username == current_user.username).first()
     product = db_sess.query(Product).get(product_id_fav)
     inter = ast.literal_eval(user.fav)
     list_product = {'product': product.to_dict(
-            only=('id', 'title', 'count', 'price', 'image'))}
+        only=('id', 'title', 'count', 'price', 'image'))}
     if list_product in inter:
         return {'200': 'Accept'}
     inter.append(list_product)
@@ -180,7 +197,8 @@ def favourite_add():
 def del_fav():
     db_sess = db_session.create_session()
     product_id_fav = str(json.loads(request.data)['id'])
-    user = db_sess.query(User).filter(User.username == current_user.username).first()
+    user = db_sess.query(User).filter(
+        User.username == current_user.username).first()
     inter = ast.literal_eval(user.bin)
     for i in range(len(inter)):
         if product_id_fav == inter[i]['product']['id']:
