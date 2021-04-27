@@ -202,7 +202,7 @@ def del_bin():
 
 @app.route('/edit_product', methods=['POST'])
 @login_required
-def edit_bin():
+def edit_product():
     db_sess = db_session.create_session()
     product_data = json.loads(request.data)['content']
     product = db_sess.query(Product).filter(
@@ -225,6 +225,18 @@ def add_product():
         count=product_data['count'],
     )
     db_sess.add(product)
+    db_sess.commit()
+    return {'200': 'Accept'}
+
+
+@app.route('/del_product', methods=['POST'])
+@login_required
+def del_product():
+    db_sess = db_session.create_session()
+    product_data_id = json.loads(request.data)['content']['id']
+    product = db_sess.query(Product).filter(
+        Product.id == product_data_id).first()
+    db_sess.delete(product)
     db_sess.commit()
     return {'200': 'Accept'}
 
