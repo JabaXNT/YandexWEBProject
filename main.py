@@ -14,6 +14,7 @@ from forms.reg_user import RegisterForm
 
 app = Flask(__name__)
 app.add_template_global(ast.literal_eval, name='dict')
+app.add_template_global(sum, name='sum')
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 api = Api(app)
 login_manager = LoginManager()
