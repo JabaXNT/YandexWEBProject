@@ -128,6 +128,19 @@ def del_bin():
     db_sess.commit()
     return {'200': 'Accept'}
 
+@app.route('/edit_product')
+@login_required
+def edit_bin():
+    db_sess = db_session.create_session()
+    product_data = str(json.loads(request.data['id']))
+    product = db_sess.query(Product).filter(Product.id == product_data['id']).first
+#    product.title = 
+#    product.price =
+#    product.count = 
+#    product.image =
+#    db_sess.commit()
+    return {'200': 'Accept'}
+
 
 @app.route('/fav')
 @login_required
