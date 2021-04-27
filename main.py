@@ -102,14 +102,15 @@ def bin():
     return render_template('bin.html', list_product=bin_list)
 
 
-@app.route('/fav')
+@app.route('/favorite')
 @login_required
 def fav():
     db_sess = db_session.create_session()
     fav_sess = db_sess.query(User).get(current_user.id)
     fav_list = {'product': fav_sess.to_dict(
         only=('favourite',))}
-    return render_template('fav.html', list_product=fav_list)
+    fav_list = fav_list['product']
+    return render_template('favorite.html', list_product=fav_list)
 
 
 @app.route('/add_bin', methods=['GET', 'POST'])
