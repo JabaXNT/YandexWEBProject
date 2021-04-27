@@ -108,9 +108,22 @@ def bin_add():
     list_product = {'product': product.to_dict(
             only=('id', 'title', 'count', 'price'))}
     if list_product in inter:
-        print(user.bin)
         return {'200': 'Accept'}
     inter.append(list_product)
+    user.bin = str(inter)
+    db_sess.commit()
+    return {'200': 'Accept'}
+
+@app.route('/del_bin')
+@login_required
+def del_bin():
+    db_sess = db_session.create_session()
+    product_id_bin = str(json.loads(request.data)['id'])
+    user = db_sess.query(User).filter(User.username == current_user.username).first()
+    inter = ast.literal_eval(user.bin)
+    for i in range(len(inter)):
+        if product_id_bin == inter[i]['product']['id']:
+            del inter[i]
     user.bin = str(inter)
     db_sess.commit()
     return {'200': 'Accept'}
@@ -140,6 +153,21 @@ def favourite_add():
         return {'200': 'Accept'}
     inter.append(list_product)
     user.favourite = str(inter)
+    db_sess.commit()
+    return {'200': 'Accept'}
+
+
+@app.route('/del_fav')
+@login_required
+def del_fav():
+    db_sess = db_session.create_session()
+    product_id_fav = str(json.loads(request.data)['id'])
+    user = db_sess.query(User).filter(User.username == current_user.username).first()
+    inter = ast.literal_eval(user.bin)
+    for i in range(len(inter)):
+        if product_id_fav == inter[i]['product']['id']:
+            del inter[i]
+    user.fav = str(inter)
     db_sess.commit()
     return {'200': 'Accept'}
 
