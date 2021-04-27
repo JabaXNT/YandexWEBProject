@@ -62,12 +62,14 @@ def reqister():
 def login():
     form = LoginForm()
     session['login'] = None
+    session['is_admin'] = None
     db_sess = db_session.create_session()
     if form.validate_on_submit():
         user = db_sess.query(User).filter(
             User.email == form.email.data).first()
         if user and user.check_password(form.password.data):
             session['login'] = str(user)
+            session['is_admin'] = str(user.is_admin)
             session['favorite'] = []
             login_user(user, remember=form.remember_me.data)
             return redirect("/")
@@ -113,6 +115,7 @@ def bin_add():
     user.bin = str(inter)
     db_sess.commit()
     return {'200': 'Accept'}
+
 
 @app.route('/del_bin')
 @login_required
@@ -187,5 +190,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
