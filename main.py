@@ -225,6 +225,7 @@ def add_product():
         title=product_data['title'],
         price=product_data['price'],
         count=product_data['count'],
+        image='https://sun9-57.userapi.com/impf/c626118/v626118034/745ca/LEGJY4cuLG0.jpg?size=640x640&quality=96&sign=8da868aa7dcb22613d43c3157da4be6f&type=album'
     )
     db_sess.add(product)
     db_sess.commit()
