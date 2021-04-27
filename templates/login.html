@@ -2,6 +2,7 @@
     <link href="../static/style.css" rel="stylesheet">
 </head>
 <div class='footer_registration'><b>Авторизация</b></div>
+<p style="text-align: center"><a href="/"><img src="../static/exchange-01_4x.png" height="250" width="350"/></a></p>
 <form action="" class='form_login' method="post">
     {{ form.hidden_tag() }}
     <p>
@@ -20,6 +21,10 @@
         {{ error }}
     </div>
     {% endfor %}
+    <p><a href="/reg"
+          style="text-decoration: None; color: black"
+          onmouseover="this.style.color='rgba(0,0,0,0.79)'"
+          onmouseout="this.style.color='rgb(0,0,0)">Нет аккаунта? -> Создать</a></p>
     <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
     <div>{{ message }}</div>
 </form>
