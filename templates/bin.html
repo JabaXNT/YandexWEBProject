@@ -2,6 +2,7 @@
 
 {% block content %}
 
+{% if list_product['bin'] != '[]' %}
 {% set a = dict(list_product['bin'][1:-1]) %}
 {% for i in range(a | length) %}
 <div>
@@ -16,4 +17,7 @@
     </figure>
 </div>
 {% endfor %}
+{% else %}
+<p style="text-align: center; margin-bottom: calc(100vh - 15%)">Товаров нет</p>
+{% endif %}
 {% endblock %}

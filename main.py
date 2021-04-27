@@ -62,12 +62,14 @@ def reqister():
 def login():
     form = LoginForm()
     session['login'] = None
+    session['is_admin'] = None
     db_sess = db_session.create_session()
     if form.validate_on_submit():
         user = db_sess.query(User).filter(
             User.email == form.email.data).first()
         if user and user.check_password(form.password.data):
             session['login'] = str(user)
+            session['is_admin'] = str(user.is_admin)
             session['favorite'] = []
             login_user(user, remember=form.remember_me.data)
             return redirect("/")
@@ -114,6 +116,7 @@ def bin_add():
     db_sess.commit()
     return {'200': 'Accept'}
 
+
 @app.route('/del_bin')
 @login_required
 def del_bin():
@@ -128,12 +131,14 @@ def del_bin():
     db_sess.commit()
     return {'200': 'Accept'}
 
-@app.route('/edit_product')
+
+@app.route('/edit_product', methods=['POST'])
 @login_required
 def edit_bin():
     db_sess = db_session.create_session()
-    product_data = str(json.loads(request.data['id']))
-    product = db_sess.query(Product).filter(Product.id == product_data['id']).first
+    product_data = str(json.loads(request.data))
+    # product = db_sess.query(Product).filter(Product.id == product_data['id']).first
+    print(product_data)
 #    product.title = 
 #    product.price =
 #    product.count = 
@@ -200,5 +205,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
